@@ -2,7 +2,7 @@ from typing import List
 import redis
 import json
 
-from Models import TestObject
+from Models import ItemPublish, TestObject
 from fastapi import FastAPI, Depends
 
 app = FastAPI()
@@ -73,6 +73,16 @@ def delete_item(item_id: str, db_nsql: redis.Redis = Depends(get_db_NSql)):
             return  json.loads(item_db.decode("utf-8"))
         else:
             return None
+    except Exception as e:
+        print(e)
+        return None
+
+@app.post("/publish", response_model=ItemPublish)
+def publish_item(item: ItemPublish, db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        if db_nsql.ping():
+            print(db_nsql.publish(channel=item.channel, message=item.message))
+            return item
     except Exception as e:
         print(e)
         return None

@@ -51,3 +51,15 @@ def create_item(item: TestObject, db_nsql: redis.Redis = Depends(get_db_NSql)):
     except Exception as e:
         print(e)
         return None
+
+@app.get("/item/{item_id}", response_model= TestObject)
+def get_item(item_id: str, db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        item_db = db_nsql.get(item_id)
+        if db_nsql.ping() and  item_db != None:
+            return  json.loads(item_db.decode("utf-8"))
+        else:
+            return None
+    except Exception as e:
+        print(e)
+        return None

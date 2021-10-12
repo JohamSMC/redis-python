@@ -40,3 +40,14 @@ def get_users_db(db_nsql: redis.Redis = Depends(get_db_NSql)):
     except Exception as e:
         print(e)
         return None
+
+@app.post("/item", response_model=TestObject)
+def create_item(item: TestObject, db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        if db_nsql.ping():
+            item.time_life =  item.time_life != None if item.time_life else TIME_LIFE_DB
+            db_nsql.set(f"item-{item.id}", json.dumps(item.dict()), ex=item.time_life)
+            return item
+    except Exception as e:
+        print(e)
+        return None

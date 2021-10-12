@@ -45,8 +45,8 @@ def get_users_db(db_nsql: redis.Redis = Depends(get_db_NSql)):
 def create_item(item: TestObject, db_nsql: redis.Redis = Depends(get_db_NSql)):
     try:
         if db_nsql.ping():
-            item.time_life =  item.time_life != None if item.time_life else TIME_LIFE_DB
-            db_nsql.set(f"item-{item.id}", json.dumps(item.dict()), ex=item.time_life)
+            item.time_life =  item.time_life if item.time_life != None  else TIME_LIFE_DB
+            db_nsql.set(item.id, json.dumps(item.dict()), ex=item.time_life)
             return item
     except Exception as e:
         print(e)
@@ -57,6 +57,19 @@ def get_item(item_id: str, db_nsql: redis.Redis = Depends(get_db_NSql)):
     try:
         item_db = db_nsql.get(item_id)
         if db_nsql.ping() and  item_db != None:
+            return  json.loads(item_db.decode("utf-8"))
+        else:
+            return None
+    except Exception as e:
+        print(e)
+        return None
+
+@app.delete("/item/{item_id}", response_model= TestObject)
+def delete_item(item_id: str, db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        item_db = db_nsql.get(item_id)
+        if db_nsql.ping() and  item_db != None:
+            db_nsql.delete(item_id)
             return  json.loads(item_db.decode("utf-8"))
         else:
             return None

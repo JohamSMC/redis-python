@@ -1,0 +1,22 @@
+Comandos REDIS CLI
+
+KEYS *      --> Obtener todas la keys
+ACL WHOAMI  --> Obtener usuario actual
+ACL USERS   --> Obtener todos los usuarios
+FLUSHALL    --> Eliminar todas las keys de todas las BD
+FLUSHDB     --> Eliminar todas las keys de la BD actual
+client list --> Mostra conexios activas
+SAVE        --> Forzar hacer copia de seguridad data en disco
+BGSAVE      --> Forzar hacer copia de seguridad data en disco en segundo plano
+
+
+
+ACL SETUSER test on allkeys allchannels +set +get >abc123
+
+ACL SETUSER test on allkeys allchannels +set +get +acl >abc123
+
+ACL SETUSER test on allkeys allchannels +set +get +acl +ping >abc123
+
+ACL SETUSER test on allkeys allchannels +set +get +acl +ping +publish >abc123
+
+ACL DELUSER test

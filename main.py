@@ -11,7 +11,8 @@ TIME_LIFE_DB =  15
 
 def get_db_NSql():
     try:
-        db_nsql = redis.Redis(host='localhost', port=6379, db=0, password=None)
+        # db_nsql = redis.Redis(host='localhost', port=6379, db=0, password=None)
+        db_nsql = redis.Redis(host='localhost', port=6379, db=0,  username='test', password='abc123')
         yield  db_nsql
     finally:
         return None

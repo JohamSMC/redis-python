@@ -1,6 +1,28 @@
+from typing import List
 import redis
+import json
 
-r = redis.Redis(host='localhost', port=6379, db=0,  password=None)
+from Models import TestObject
+from fastapi import FastAPI, Depends
 
-r.mset ({'clave1': 'valor1', 'clave2': 'valor2'})
-print(r.mget('clave1', 'clave2'))
+app = FastAPI()
+
+TIME_LIFE_DB =  15
+
+def get_db_NSql():
+    try:
+        db_nsql = redis.Redis(host='localhost', port=6379, db=0, password=None)
+        yield  db_nsql
+    finally:
+        return None
+
+@app.get("/ping", response_model=str)
+def get_ping(db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        if db_nsql.ping():
+            return "pong"
+    except Exception as e:
+        print(e)
+        return None
+
+

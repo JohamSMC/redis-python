@@ -25,4 +25,18 @@ def get_ping(db_nsql: redis.Redis = Depends(get_db_NSql)):
         print(e)
         return None
 
+@app.get("/get-user-db", response_model= str)
+def get_users_db(db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        return db_nsql.acl_whoami()
+    except Exception as e:
+        print(e)
+        return None
 
+@app.get("/get-users-db", response_model= List[str])
+def get_users_db(db_nsql: redis.Redis = Depends(get_db_NSql)):
+    try:
+        return db_nsql.acl_users()
+    except Exception as e:
+        print(e)
+        return None

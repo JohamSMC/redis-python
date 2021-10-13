@@ -1,4 +1,8 @@
 # redis-python
+* Joham Sebastian Medina Corredor  [![Git-JohamSMC](https://img.shields.io/badge/GitHub-JohamSMC-red?style=plastic&logo=github&link=https://github.com/JohamSMC)](https://github.com/JohamSMC)
+* Hernan Alirio Cadena Gonzalez  [![Git-HernanChain](https://img.shields.io/badge/GitHub-HernanChain-red?style=plastic&logo=github&link=https://github.com/hernanChain)](https://github.com/hernanChain)
+
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/JohamSMC/redis-python)
 
 ### 1 paso:
@@ -34,5 +38,5 @@ pip install -r requirements.txt
 > Despues procedemos a correr el proyecto ("Estando Ubicados en la raiz del proyecto") con el comando:
 
 ```
-uvicorn main:app --reload 
+uvicorn main:app --reload
 ```

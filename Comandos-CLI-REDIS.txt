@@ -20,3 +20,8 @@ ACL SETUSER test on allkeys allchannels +set +get +acl +ping >abc123
 ACL SETUSER test on allkeys allchannels +set +get +acl +ping +publish >abc123
 
 ACL DELUSER test
+
+service snap.redis.server status
+service redis-server status
+
+systemctl --type=service | grep redis

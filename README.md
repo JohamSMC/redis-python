@@ -13,13 +13,15 @@
 
 ```
 python -m venv env
+o
+python3 -m venv env
 ```
 
 ### 3 paso:
 > Activar  **venv**
 
 ```
-source /env/bin/activate
+source env/bin/activate
 ```
 
 ### 4 paso:
